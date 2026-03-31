@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CS Premium Solutions — Corporate Gifts & Branding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-pale: #F5E6C0;
+      --dark: #0A0A0A;
+      --dark-2: #111111;
+      --dark-3: #1A1A1A;
+      --dark-4: #242424;
+      --text: #E8E2D6;
+      --text-muted: #8A8070;
+      --border: rgba(201,168,76,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+     /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 60px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--gold); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); font-weight: 300; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border);
+      padding: 9px 22px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+    /* HAMBURGER BUTTON */
+    .hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px;
+      background: transparent; border: 1px solid var(--border);
+      cursor: pointer; padding: 8px; transition: border-color 0.3s;
+    }
+    .hamburger:hover { border-color: var(--gold); }
+    .hamburger span {
+      display: block; width: 100%; height: 1px;
+      background: var(--text-muted); transition: all 0.3s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--gold); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--gold); }
+
+    /* MOBILE NAV DRAWER */
+    .mobile-nav-drawer {
+      display: none;
+      position: fixed; top: 65px; left: 0; right: 0; z-index: 99;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+    }
+    .mobile-nav-drawer.open {
+      max-height: 400px;
+      padding: 20px 24px 28px;
+    }
+    .mobile-nav-drawer ul {
+      list-style: none; display: flex; flex-direction: column; gap: 4px;
+      margin-bottom: 20px;
+    }
+    .mobile-nav-drawer ul a {
+      display: block; padding: 12px 0;
+      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.25s;
+    }
+    .mobile-nav-drawer ul a:hover, .mobile-nav-drawer ul a.active { color: var(--gold); }
+    .mobile-nav-drawer .mobile-cta {
+      display: block; padding: 14px; text-align: center;
+      background: var(--gold); color: var(--dark);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.3s;
+    }
+    .mobile-nav-drawer .mobile-cta:hover { background: var(--gold-light); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 60px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    }
+
+    .hero-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    }
+    .hero-line:nth-child(2) { left: 60px; }
+    .hero-line:nth-child(3) { right: 60px; }
+
+    .hero-inner {
+      position: relative;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 40px;
+    }
+
+    .hero-tag::before,
+    .hero-tag::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 500px;
+      margin: 0 auto 56px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 44px;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 16px 44px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--dark-3);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-tag::before,
+    .section-tag::after {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* ── PRODUCTS ── */
+    #products {
+      padding: 100px 60px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      position: relative;
+      background: var(--dark-3);
+      overflow: hidden;
+      cursor: pointer;
+      group: true;
+    }
+
+    .product-card::before {
+      content: '';
+      display: block;
+      padding-top: 120%;
+    }
+
+    .product-img {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .product-card:hover .product-img { transform: scale(1.05); }
+
+    /* Product image placeholders with luxury feel */
+    .product-card:nth-child(1) .product-img { background: linear-gradient(135deg, #1a1408 0%, #2a1e0a 50%, #1a1408 100%); }
+    .product-card:nth-child(2) .product-img { background: linear-gradient(135deg, #0a0d1a 0%, #101624 50%, #0a0d1a 100%); }
+    .product-card:nth-child(3) .product-img { background: linear-gradient(135deg, #0d1a0d 0%, #132013 50%, #0d1a0d 100%); }
+    .product-card:nth-child(4) .product-img { background: linear-gradient(135deg, #1a0a0a 0%, #240e0e 50%, #1a0a0a 100%); }
+    .product-card:nth-child(5) .product-img { background: linear-gradient(135deg, #12100a 0%, #1c1810 50%, #12100a 100%); }
+    .product-card:nth-child(6) .product-img { background: linear-gradient(135deg, #0a1218 0%, #0e1c26 50%, #0a1218 100%); }
+
+    .product-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      transform: translateY(8px);
+      transition: transform 0.4s;
+    }
+
+    .product-card:hover .product-overlay { transform: translateY(0); }
+
+    .product-cat {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .product-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .product-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s 0.05s;
+    }
+
+    .product-card:hover .product-action {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-action::after {
+      content: '→';
+      font-size: 14px;
+    }
+
+    /* Large featured card */
+    .product-card.featured {
+      grid-row: span 2;
+    }
+
+    .product-card.featured::before { padding-top: 0; height: 100%; position: absolute; }
+
+    /* ── TELEGRAM CTA ── */
+    .telegram-cta {
+      margin: 80px auto 0;
+      max-width: 700px;
+      text-align: center;
+      padding: 60px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .telegram-cta::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .telegram-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .telegram-cta span {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 32px;
+    }
+
+    .btn-telegram {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-telegram:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    .btn-telegram svg { width: 16px; height: 16px; }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 100px 60px;
+      background: var(--dark-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 500px;
+    }
+
+    .about-box {
+      position: absolute;
+      border: 1px solid var(--border);
+    }
+
+    .about-box-main {
+      inset: 0;
+      background: var(--dark-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-monogram {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.15;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .about-box-accent {
+      width: 120px;
+      height: 120px;
+      bottom: -20px;
+      right: -20px;
+      background: var(--gold);
+      opacity: 0.08;
+    }
+
+    .about-box-line {
+      width: 60px;
+      height: 1px;
+      top: 40px;
+      left: -30px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    .about-content { }
+
+    .about-content .section-header { text-align: left; margin-bottom: 32px; }
+    .about-content .section-header .section-tag { justify-content: flex-start; }
+    .about-content .section-header .section-tag::before { display: none; }
+
+    .about-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .about-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 32px 0;
+    }
+
+    .about-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .about-features li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text);
+    }
+
+    .about-features li::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 100px 60px;
+      text-align: center;
+    }
+
+    .contact-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 48px;
+    }
+
+    .contact-channels {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .contact-channel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 28px 36px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.3s;
+      min-width: 140px;
+    }
+
+    .contact-channel:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .contact-channel-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .contact-channel-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .contact-channel-value {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid var(--border);
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-logo span { color: var(--text-muted); font-weight: 300; }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── ENTRANCE ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      #hero, #products, #about, #contact { padding: 80px 24px; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-visual { height: 280px; }
+      .stats-bar { gap: 32px; padding: 24px; flex-wrap: wrap; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .catalog-layout { grid-template-columns: 220px 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav-drawer { display: block; }
+
+      .page-header { padding: 110px 24px 40px; }
+      .catalog-layout { grid-template-columns: 1fr; }
+
+      /* Hide desktop sidebar */
+      .sidebar { display: none; }
+
+      /* Show mobile filter toggle + drawer */
+      .filter-toggle-bar { display: flex; }
+
+      .catalog-main { padding: 20px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    }
+    @media (max-width: 420px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">CS<span> Premium Solutions</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="catalog.html"
+      >Products</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="https://t.me/YourTelegramHandle" class="nav-cta" target="_blank">Enquire Now</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="catalog.html">Products</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="https://t.me/YourTelegramHandle" class="mobile-cta" target="_blank">✈ Enquire on Telegram</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag fade-up">Corporate Gifting & Branding</div>
+    <h1 class="hero-title fade-up">
+      Gifts That <em>Speak</em><br>For Your Brand
+    </h1>
+    <p class="hero-sub fade-up">
+      Premium corporate gifts and bespoke branding solutions crafted to leave a lasting impression on every client, partner, and occasion.
+    </p>
+    <div class="hero-actions fade-up">
+      <a href="#products" class="btn-primary">View Collection</a>
+      <a href="#contact" class="btn-ghost">Request a Quote</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat fade-up">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Corporate Clients</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">10K+</div>
+    <div class="stat-label">Gifts Delivered</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Custom Branding</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">5★</div>
+    <div class="stat-label">Client Rating</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header fade-up">
+    <div class="section-tag">Our Collection</div>
+    <h2 class="section-title">Curated <em>Corporate</em> Gifts</h2>
+  </div>
+
+  <div class="products-grid">
+    <!-- Card 1 -->
+    <div class="product-card">
+      <div class="product-img">🎁</div>
+      <div class="product-overlay">
+        <div class="product-cat">Luxury Sets</div>
+        <div class="product-name">Executive Gift Box</div>
+        <div class="product-desc">Curated premium sets with custom branding</div>
+        <a href="https://t.me/YourTelegramHandle" class="product-action" target="_blank">Enquire via Telegram</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card">
+      <div class="product-img">📒</div>
+      <div class="product-overlay">
+        <div class="product-cat">Stationery</div>
+        <div class="product-name">Branded Notebooks</div>
+        <div class="product-desc">Premium leather-bound with logo embossing</div>
+        <a href="https://t.me/YourTelegramHandle" class="product-action" target="_blank">Enquire via Telegram</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card">
+      <div class="product-img">🏆</div>
+      <div class="product-overlay">
+        <div class="product-cat">Recognition</div>
+        <div class="product-name">Award Trophies</div>
+        <div class="product-desc">Custom crystal & metal awards for milestones</div>
+        <a href="https://t.me/YourTelegramHandle" class="product-action" target="_blank">Enquire via Telegram</a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="product-card">
+      <div class="product-img">☕</div>
+      <div class="product-overlay">
+        <div class="product-cat">Lifestyle</div>
+        <div class="product-name">Premium Drinkware</div>
+        <div class="product-desc">Branded tumblers, mugs & tea sets</div>
+        <a href="https://t.me/YourTelegramHandle" class="product-action" target="_blank">Enquire via Telegram</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="product-card">
+      <div class="product-img">👔</div>
+      <div class="product-overlay">
+        <div class="product-cat">Apparel</div>
+        <div class="product-name">Corporate Apparel</div>
+        <div class="product-desc">Embroidered shirts, jackets & uniforms</div>
+        <a href="https://t.me/YourTelegramHandle" class="product-action" target="_blank">Enquire via Telegram</a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="product-card">
+      <div class="product-img">🖊️</div>
+      <div class="product-overlay">
+        <div class="product-cat">Essentials</div>
+        <div class="product-name">Branded Pen Sets</div>
+        <div class="product-desc">Metal pens with laser-engraved logo</div>
+        <a href="https://t.me/YourTelegramHandle" class="product-action" target="_blank">Enquire via Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Telegram CTA inside products -->
+  <div class="telegram-cta fade-up">
+    <p>Interested in a product?</p>
+    <span>Contact us directly on Telegram for pricing, customisation & bulk orders</span>
+    <a href="https://t.me/YourTelegramHandle" class="btn-telegram" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Chat on Telegram
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual fade-up">
+      <div class="about-box about-box-main">
+        <!-- <div class="about-monogram">CS</div> -->
+         <img src="assets/images/banner.jpg" alt="Photo" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+      </div>
+      <div class="about-box about-box-accent"></div>
+      <div class="about-box about-box-line"></div>
+    </div>
+    <div class="about-content">
+      <div class="section-header fade-up">
+        <div class="section-tag">Our Story</div>
+        <h2 class="section-title">Why <em>CS Premium</em></h2>
+      </div>
+      <p class="about-text fade-up">
+        We specialize in elevating corporate relationships through thoughtfully curated gifts and precision-branded merchandise. Every product we deliver is a statement — a reflection of your company's values and commitment to quality.
+      </p>
+      <p class="about-text fade-up">
+        From intimate client gifts to large-scale event merchandise, we handle every detail with care — ensuring your brand is always represented at its finest.
+      </p>
+      <div class="about-divider"></div>
+      <ul class="about-features fade-up">
+        <li>Custom logo embossing & laser engraving</li>
+        <li>Bulk corporate orders with fast turnaround</li>
+        <li>Premium packaging & presentation boxes</li>
+        <li>End-to-end delivery across Cambodia & region</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-header fade-up">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Let's <em>Create</em> Together</h2>
+    </div>
+    <p class="contact-text fade-up">
+      Ready to elevate your corporate gifting? Reach out via Telegram for the fastest response. We're here to bring your brand vision to life.
+    </p>
+    <div class="contact-channels fade-up">
+      <a href="https://t.me/YourTelegramHandle" class="contact-channel" target="_blank">
+        <div class="contact-channel-icon">✈️</div>
+        <div class="contact-channel-label">Telegram</div>
+        <div class="contact-channel-value">@YourHandle</div>
+      </a>
+      <a href="mailto:hello@cspremiumsolutions.com" class="contact-channel">
+        <div class="contact-channel-icon">✉️</div>
+        <div class="contact-channel-label">Email</div>
+        <div class="contact-channel-value">hello@cspremiumsolutions.com</div>
+      </a>
+      <a href="tel:+85512345678" class="contact-channel">
+        <div class="contact-channel-icon">📞</div>
+        <div class="contact-channel-label">Phone</div>
+        <div class="contact-channel-value">+855 12 345 678</div>
+      </a>
+    </div>
+    <a href="https://t.me/YourTelegramHandle" class="btn-primary fade-up" target="_blank">Start Your Order on Telegram →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CS<span> Premium Solutions</span></div>
+  <div class="footer-copy">© 2025 CS Premium Solutions. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll animation observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Animate stats on scroll
+  const animateValue = (el, start, end, suffix, duration) => {
+    let startTime = null;
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(start + (end - start) * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = document.querySelectorAll('.stat-num');
+        animateValue(nums[0], 0, 500, '+', 1200);
+        animateValue(nums[1], 0, 10, 'K+', 1200);
+        setTimeout(() => { nums[2].textContent = '100%'; }, 600);
+        setTimeout(() => { nums[3].textContent = '5★'; }, 800);
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsObserver.observe(statsBar);
+
+  // Hamburger nav toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNavDrawer.classList.toggle('open');
+  });
+  // Close nav drawer when clicking a link
+  mobileNavDrawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileNavDrawer.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
