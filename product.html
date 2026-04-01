@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Executive Gift Box — CS Premium Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --dark: #0A0A0A;
+      --dark-2: #111111;
+      --dark-3: #1A1A1A;
+      --dark-4: #242424;
+      --text: #E8E2D6;
+      --text-muted: #8A8070;
+      --border: rgba(201,168,76,0.18);
+      --border-hover: rgba(201,168,76,0.45);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.35;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 60px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--gold); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); font-weight: 300; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border);
+      padding: 9px 22px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+    /* BREADCRUMB */
+    .breadcrumb-bar {
+      margin-top: 72px;
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .breadcrumb-bar a { color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
+    .breadcrumb-bar a:hover { opacity: 0.75; }
+
+    /* PRODUCT DETAIL LAYOUT */
+    .product-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 108px);
+    }
+
+    /* LEFT — IMAGE PANEL */
+    .image-panel {
+      position: sticky;
+      top: 72px;
+      height: calc(100vh - 72px);
+      background: var(--dark-3);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .image-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1408 0%, #2a1e0a 60%, #1a1408 100%);
+    }
+
+    .image-main-emoji {
+      font-size: 120px;
+      opacity: 0.9;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      user-select: none;
+    }
+
+    .image-main:hover .image-main-emoji { transform: scale(1.05) rotate(-2deg); }
+
+    .image-badge {
+      position: absolute; top: 24px; left: 24px;
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 5px 12px; background: var(--gold); color: var(--dark);
+    }
+
+    .image-corner {
+      position: absolute; bottom: 24px; right: 24px;
+      width: 48px; height: 48px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .image-corner-tl {
+      position: absolute; top: 24px; right: 24px;
+      width: 48px; height: 48px;
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Thumbnails */
+    .image-thumbs {
+      display: flex;
+      border-top: 1px solid var(--border);
+    }
+
+    .thumb {
+      flex: 1; height: 90px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      border-right: 1px solid var(--border);
+      transition: background 0.25s;
+      opacity: 0.5;
+      position: relative;
+    }
+    .thumb:last-child { border-right: none; }
+    .thumb.active {
+      opacity: 1;
+      background: rgba(201,168,76,0.07);
+    }
+    .thumb.active::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--gold);
+    }
+    .thumb:hover { opacity: 0.8; background: rgba(201,168,76,0.04); }
+
+    /* RIGHT — INFO PANEL */
+    .info-panel {
+      padding: 56px 64px 80px;
+      overflow-y: auto;
+    }
+    .info-panel::-webkit-scrollbar { width: 3px; }
+    .info-panel::-webkit-scrollbar-thumb { background: var(--border); }
+
+    .product-cat-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px;
+    }
+    .product-cat-tag::before {
+      content: ''; width: 24px; height: 1px;
+      background: var(--gold); opacity: 0.5;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 300; line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .product-name em { font-style: italic; color: var(--gold); }
+
+    .product-tagline {
+      font-size: 14px; font-weight: 300; color: var(--text-muted);
+      letter-spacing: 0.05em; margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 32px 0;
+    }
+
+    /* Specs row */
+    .specs-row {
+      display: flex; gap: 0; margin-bottom: 36px;
+      border: 1px solid var(--border);
+    }
+    .spec {
+      flex: 1; padding: 18px 20px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .spec:last-child { border-right: none; }
+    .spec-label {
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .spec-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400; color: var(--gold);
+      line-height: 1;
+    }
+    .spec-sub {
+      font-size: 10px; color: var(--text-muted); margin-top: 4px;
+    }
+
+    /* Options: quantity selector */
+    .option-section { margin-bottom: 28px; }
+    .option-label {
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .option-label span { color: var(--text); }
+
+    .qty-row {
+      display: flex; align-items: center; gap: 0;
+      border: 1px solid var(--border); width: fit-content;
+    }
+    .qty-btn {
+      width: 44px; height: 44px;
+      background: transparent; border: none;
+      color: var(--text-muted); font-size: 18px;
+      cursor: pointer; transition: all 0.2s;
+      font-family: 'Jost', sans-serif;
+    }
+    .qty-btn:hover { color: var(--gold); background: rgba(201,168,76,0.06); }
+    .qty-val {
+      width: 60px; height: 44px;
+      background: var(--dark-3); border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+      color: var(--text); font-family: 'Jost', sans-serif;
+      font-size: 14px; text-align: center; outline: none;
+    }
+
+    /* Branding options */
+    .branding-opts {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .brand-opt {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      font-size: 11px; letter-spacing: 0.1em;
+      color: var(--text-muted); cursor: pointer;
+      transition: all 0.25s; background: transparent;
+      font-family: 'Jost', sans-serif;
+    }
+    .brand-opt:hover { border-color: var(--border-hover); color: var(--text); }
+    .brand-opt.active {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+
+    /* CTA buttons */
+    .cta-group { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+
+    .btn-tg {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 18px;
+      background: var(--gold); color: var(--dark);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.3s; border: none; cursor: pointer;
+    }
+    .btn-tg:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-tg svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .btn-share {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s; font-family: 'Jost', sans-serif;
+    }
+    .btn-share:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* What's included */
+    .includes-section { margin-top: 36px; }
+    .includes-title {
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .includes-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .includes-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .includes-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13px; font-weight: 300; color: var(--text); line-height: 1.5;
+    }
+    .includes-list li::before {
+      content: ''; width: 16px; height: 1px;
+      background: var(--gold); opacity: 0.6; flex-shrink: 0; margin-top: 10px;
+    }
+
+    /* Tabs: Description / Branding / Delivery */
+    .tabs { margin-top: 40px; }
+    .tab-nav {
+      display: flex; border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      padding: 12px 0; margin-right: 32px;
+      background: none; border: none; border-bottom: 2px solid transparent;
+      font-family: 'Jost', sans-serif; font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted); cursor: pointer; transition: all 0.25s;
+      margin-bottom: -1px;
+    }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-btn:hover { color: var(--text); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .tab-text {
+      font-size: 13px; font-weight: 300; color: var(--text-muted);
+      line-height: 1.9;
+    }
+    .tab-text p { margin-bottom: 14px; }
+    .tab-text p:last-child { margin-bottom: 0; }
+
+    .tab-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 4px;
+    }
+    .tab-spec-item {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      background: var(--dark-3);
+    }
+    .tab-spec-key {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .tab-spec-val { font-size: 13px; font-weight: 300; color: var(--text); }
+
+    /* Related products */
+    .related-section {
+      padding: 80px 60px;
+      border-top: 1px solid var(--border);
+      background: var(--dark-2);
+    }
+    .related-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .related-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 300;
+    }
+    .related-title em { font-style: italic; color: var(--gold); }
+    .related-link {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none; transition: opacity 0.2s;
+    }
+    .related-link:hover { opacity: 0.7; }
+
+    .related-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .related-card {
+      background: var(--dark-3); position: relative;
+      overflow: hidden; cursor: pointer;
+      text-decoration: none; display: block;
+    }
+    .related-card::before { content: ''; display: block; padding-top: 100%; }
+    .related-card-img {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 44px;
+      transition: transform 0.5s;
+    }
+    .related-card:hover .related-card-img { transform: scale(1.07); }
+    .related-card-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 16px;
+      background: linear-gradient(to top, rgba(10,10,10,0.96), transparent);
+    }
+    .related-card-cat {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 4px;
+    }
+    .related-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-weight: 400; color: var(--text);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark); border-top: 1px solid var(--border);
+      padding: 32px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 600; color: var(--gold);
+    }
+    .footer-logo span { color: var(--text-muted); font-weight: 300; }
+    .footer-copy { font-size: 11px; color: var(--text-muted); }
+
+    /* Fade in */
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .breadcrumb-bar { padding: 14px 24px; }
+      .product-detail { grid-template-columns: 1fr; }
+      .image-panel { position: relative; top: auto; height: 380px; }
+      .info-panel { padding: 36px 24px 60px; }
+      .related-section { padding: 60px 24px; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+      .tab-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">CS<span> Premium Solutions</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="catalog.html" class="active">Products</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="https://t.me/YourTelegramHandle" class="nav-cta" target="_blank">Enquire Now</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <a href="index.html">Home</a>
+  <span>›</span>
+  <a href="catalog.html">Products</a>
+  <span>›</span>
+  <span>Executive Gift Box</span>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div class="product-detail">
+
+  <!-- LEFT: IMAGE -->
+  <div class="image-panel">
+    <div class="image-main" id="imageMain">
+      <span class="image-badge">Popular</span>
+      <div class="image-corner"></div>
+      <div class="image-corner-tl"></div>
+      <div class="image-main-emoji" id="mainEmoji">🎁</div>
+    </div>
+    <div class="image-thumbs">
+      <div class="thumb active" data-emoji="🎁" data-bg="#1a1408,#2a1e0a">🎁</div>
+      <div class="thumb" data-emoji="🎀" data-bg="#1a0814,#240e1a">🎀</div>
+      <div class="thumb" data-emoji="📦" data-bg="#0e1218,#141c24">📦</div>
+      <div class="thumb" data-emoji="✨" data-bg="#181408,#221e08">✨</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: INFO -->
+  <div class="info-panel">
+
+    <div class="product-cat-tag fade-up">Corporate Gifts</div>
+
+    <h1 class="product-name fade-up">Executive <em>Gift Box</em></h1>
+    <p class="product-tagline fade-up">
+      A curated collection of premium items presented in a bespoke branded box — designed to impress clients, reward partners, and celebrate milestones.
+    </p>
+
+    <!-- SPECS -->
+    <div class="specs-row fade-up">
+      <div class="spec">
+        <div class="spec-label">Min. Order</div>
+        <div class="spec-value">10</div>
+        <div class="spec-sub">pieces</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Lead Time</div>
+        <div class="spec-value">7–10</div>
+        <div class="spec-sub">working days</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Branding</div>
+        <div class="spec-value">4</div>
+        <div class="spec-sub">methods available</div>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="option-section fade-up">
+      <div class="option-label">Quantity <span id="qtyDisplay">10 pcs</span></div>
+      <div class="qty-row">
+        <button class="qty-btn" id="qtyMinus">−</button>
+        <input class="qty-val" type="number" id="qtyInput" value="10" min="10" step="5"/>
+        <button class="qty-btn" id="qtyPlus">+</button>
+      </div>
+    </div>
+
+    <!-- BRANDING OPTIONS -->
+    <div class="option-section fade-up">
+      <div class="option-label">Branding Method <span id="brandDisplay">Logo Emboss</span></div>
+      <div class="branding-opts">
+        <button class="brand-opt active" data-brand="Logo Emboss">Logo Emboss</button>
+        <button class="brand-opt" data-brand="Laser Engrave">Laser Engrave</button>
+        <button class="brand-opt" data-brand="Full Colour Print">Full Colour Print</button>
+        <button class="brand-opt" data-brand="Foil Stamp">Foil Stamp</button>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-group fade-up">
+      <a href="https://t.me/YourTelegramHandle" class="btn-tg" target="_blank" id="enquireBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Enquire via Telegram
+      </a>
+      <button class="btn-share" onclick="copyLink()">⎘ &nbsp;Copy Product Link</button>
+    </div>
+
+    <!-- WHAT'S INCLUDED -->
+    <div class="includes-section fade-up">
+      <div class="includes-title">What's Included</div>
+      <ul class="includes-list">
+        <li>Rigid gift box with magnetic closure & ribbon pull</li>
+        <li>Custom branded tissue paper & shredded fill</li>
+        <li>Personalised message card with your company logo</li>
+        <li>2–4 premium items from our curated selection</li>
+        <li>Optional outer kraft shipping box for safe delivery</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TABS -->
+    <div class="tabs fade-up">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="description">Description</button>
+        <button class="tab-btn" data-tab="branding">Branding</button>
+        <button class="tab-btn" data-tab="delivery">Delivery</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-description">
+        <div class="tab-text">
+          <p>The Executive Gift Box is our flagship corporate gifting solution — a fully customisable premium set that communicates prestige, appreciation, and brand identity in a single elegant package.</p>
+          <p>Each box is handpicked and assembled by our team, with careful attention to colour, texture, and presentation. We work with you to select items that reflect your brand and resonate with your recipients.</p>
+          <p>Ideal for client appreciation, onboarding kits, employee recognition, festive gifting, and event giveaways.</p>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-branding">
+        <div class="tab-grid">
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Logo Emboss</div>
+            <div class="tab-spec-val">Debossed into box lid — elegant, tactile finish</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Laser Engrave</div>
+            <div class="tab-spec-val">Precision engraving on metal & wood items</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Full Colour Print</div>
+            <div class="tab-spec-val">Vivid CMYK print on box surfaces & inserts</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Foil Stamp</div>
+            <div class="tab-spec-val">Gold or silver foil for a luxury metallic sheen</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Artwork Required</div>
+            <div class="tab-spec-val">AI / EPS / PDF vector files preferred</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Proof</div>
+            <div class="tab-spec-val">Digital proof provided before production</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-delivery">
+        <div class="tab-grid">
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Production Time</div>
+            <div class="tab-spec-val">7–10 working days after artwork approval</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Rush Orders</div>
+            <div class="tab-spec-val">3–5 days available — enquire for surcharge</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Delivery</div>
+            <div class="tab-spec-val">Phnom Penh same-day & nationwide Cambodia</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Packaging</div>
+            <div class="tab-spec-val">Individual gift boxes + master outer cartons</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Regional Shipping</div>
+            <div class="tab-spec-val">Thailand, Vietnam, Singapore available</div>
+          </div>
+          <div class="tab-spec-item">
+            <div class="tab-spec-key">Bulk Discount</div>
+            <div class="tab-spec-val">50+ pcs: 5% off · 100+ pcs: 10% off</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<section class="related-section">
+  <div class="related-header fade-up">
+    <h2 class="related-title">You May Also <em>Like</em></h2>
+    <a href="catalog.html" class="related-link">View All Products →</a>
+  </div>
+  <div class="related-grid">
+    <a href="product.html" class="related-card fade-up">
+      <div class="related-card-img" style="background:linear-gradient(135deg,#1a1408,#2a1e0a)">🧺</div>
+      <div class="related-card-info">
+        <div class="related-card-cat">Corporate Gifts</div>
+        <div class="related-card-name">Premium Hamper Set</div>
+      </div>
+    </a>
+    <a href="product.html" class="related-card fade-up">
+      <div class="related-card-img" style="background:linear-gradient(135deg,#0a0d1a,#101624)">📒</div>
+      <div class="related-card-info">
+        <div class="related-card-cat">Branded Stationery</div>
+        <div class="related-card-name">Leather Notebook</div>
+      </div>
+    </a>
+    <a href="product.html" class="related-card fade-up">
+      <div class="related-card-img" style="background:linear-gradient(135deg,#1a1408,#241c08)">🏆</div>
+      <div class="related-card-info">
+        <div class="related-card-cat">Awards & Trophies</div>
+        <div class="related-card-name">Crystal Trophy</div>
+      </div>
+    </a>
+    <a href="product.html" class="related-card fade-up">
+      <div class="related-card-img" style="background:linear-gradient(135deg,#0a1218,#0e1c26)">☕</div>
+      <div class="related-card-info">
+        <div class="related-card-cat">Drinkware</div>
+        <div class="related-card-name">Tumbler Premium</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CS<span> Premium Solutions</span></div>
+  <div class="footer-copy">© 2025 CS Premium Solutions. All rights reserved.</div>
+</footer>
+
+<script>
+  // ── PRODUCT DATA (same source of truth as catalog.html) ──
+  const PRODUCTS = [
+    { id:1,  name:'Executive Gift Box',   cat:'corporate-gifts',     emoji:'🎁', bg:'#1a1408,#2a1e0a', desc:'Curated luxury sets with branded ribbon & custom message card', moq:10, badge:'popular', isNew:false,
+      tagline:'A curated collection of premium items presented in a bespoke branded box — designed to impress clients, reward partners, and celebrate milestones.',
+      includes:['Rigid gift box with magnetic closure & ribbon pull','Custom branded tissue paper & shredded fill','Personalised message card with your company logo','2–4 premium items from our curated selection','Optional outer kraft shipping box for safe delivery'] },
+    { id:2,  name:'Premium Hamper Set',   cat:'corporate-gifts',     emoji:'🧺', bg:'#1a1408,#2a1e0a', desc:'Artisan food & lifestyle items in a branded wicker hamper', moq:5,  badge:'', isNew:false,
+      tagline:'A beautifully curated hamper filled with artisan goods — perfect for festive gifting, client appreciation, and executive rewards.',
+      includes:['Branded wicker hamper basket with lid','Selection of premium artisan food & beverage items','Personalised gift card with your logo','Protective inner wrapping & filler','Delivery-ready outer carton'] },
+    { id:3,  name:'Desk Organizer Set',   cat:'corporate-gifts',     emoji:'📐', bg:'#1a1408,#2a1e0a', desc:'Leather-trimmed bamboo organizer with logo laser engraving', moq:20, badge:'', isNew:false,
+      tagline:'A sleek desk essential that keeps workspaces tidy while keeping your brand front and centre every single day.',
+      includes:['Bamboo & leather-trim organizer tray','Pen holder compartment','Business card slot','Logo laser engraving on front panel','Gift box packaging'] },
+    { id:4,  name:'Wellness Gift Kit',    cat:'corporate-gifts',     emoji:'🕯️', bg:'#1a1408,#2a1e0a', desc:'Scented candles, essential oils & relaxation essentials', moq:10, badge:'new', isNew:true,
+      tagline:'A thoughtful wellness set that shows you care — ideal for employee appreciation, onboarding, and year-end gifting.',
+      includes:['Soy wax scented candle with branded label','2x essential oil rollers','Relaxation eye mask','Custom message card','Rigid magnetic-close gift box'] },
+    { id:5,  name:'Tech Gift Bundle',     cat:'corporate-gifts',     emoji:'💻', bg:'#1a1408,#2a1e0a', desc:'USB hub, wireless charger & branded cable organizer', moq:15, badge:'popular', isNew:false,
+      tagline:'The modern professional\'s desk companion — practical, premium, and always on-brand.',
+      includes:['4-port USB-A/C hub','10W wireless charging pad','Branded cable organizer roll','Logo printed on each item','Branded gift sleeve packaging'] },
+    { id:6,  name:'Luxury Wine Set',      cat:'corporate-gifts',     emoji:'🍷', bg:'#1a1408,#2a1e0a', desc:'Premium wine with branded corkscrew & glasses in gift box', moq:5,  badge:'', isNew:false,
+      tagline:'An elegant gift for distinguished clients — premium wine paired with branded accessories in a luxurious presentation box.',
+      includes:['1x premium red or white wine (750ml)','2x branded wine glasses','Branded corkscrew & stopper set','Custom foil-stamped gift box','Personalised card'] },
+    { id:7,  name:'Leather Notebook',     cat:'branded-stationery',  emoji:'📒', bg:'#0a0d1a,#101624', desc:'Full-grain leather cover with embossed logo, 192 lined pages', moq:25, badge:'popular', isNew:false,
+      tagline:'A timeless writing companion — full-grain leather meets precision craftsmanship, with your brand embossed for lasting impression.',
+      includes:['Full-grain leather cover (A5 size)','192 acid-free lined pages','Ribbon page marker','Elastic closure band','Logo deboss on front cover'] },
+    { id:8,  name:'Metal Pen Set',        cat:'branded-stationery',  emoji:'🖊️', bg:'#0a0d1a,#101624', desc:'Brushed aluminium roller pens with laser-engraved logo', moq:50, badge:'', isNew:false,
+      tagline:'Write with precision and purpose — brushed aluminium roller pens that make your brand unmissable on every desk.',
+      includes:['2x brushed aluminium roller pens','Smooth black ink refill','Logo laser engraved on barrel','Magnetic close premium pen box','Optional personalisation per pen'] },
+    { id:9,  name:'Branded Card Holder',  cat:'branded-stationery',  emoji:'💳', bg:'#0a0d1a,#101624', desc:'Slim stainless steel card holder, custom logo etching', moq:30, badge:'new', isNew:true,
+      tagline:'Make every introduction memorable — a slim, sleek card holder that speaks to your brand\'s attention to detail.',
+      includes:['Stainless steel slim card holder','Holds up to 12 cards','Logo etched on front face','Brushed or mirror finish available','Velvet pouch packaging'] },
+    { id:10, name:'Embroidered Polo',     cat:'apparel',             emoji:'👕', bg:'#0d1a0d,#132013', desc:'Pique cotton polo with chest embroidery, sizes XS–3XL', moq:20, badge:'', isNew:false,
+      tagline:'Sharp, comfortable, and brand-forward — our corporate polo is the wardrobe staple every professional team deserves.',
+      includes:['100% pique cotton polo shirt','Chest embroidery (up to 8,000 stitches)','Available XS–3XL, multiple colours','Size-run breakdown per order','Poly bag individual packaging'] },
+    { id:11, name:'Corporate Jacket',     cat:'apparel',             emoji:'🧥', bg:'#0d1a0d,#132013', desc:'Softshell jacket with embroidered logo, multiple colours', moq:15, badge:'popular', isNew:false,
+      tagline:'Premium softshell that keeps your team looking sharp in any setting — from boardrooms to outdoor events.',
+      includes:['Softshell water-resistant jacket','Zip pockets & inner lining','Chest or sleeve embroidery','Available S–3XL, 6 colour options','Branded hang tag & poly bag'] },
+    { id:12, name:'Cap Collection',       cat:'apparel',             emoji:'🧢', bg:'#0d1a0d,#132013', desc:'Structured 6-panel caps with embroidery & snap-back', moq:30, badge:'new', isNew:true,
+      tagline:'A streetwear-influenced corporate essential — structured caps that carry your brand beyond the office.',
+      includes:['6-panel structured cap','Adjustable snap-back closure','Front logo embroidery (3D or flat)','Available in 8 colour ways','Kraft paper band packaging'] },
+    { id:13, name:'Tumbler Premium',      cat:'drinkware',           emoji:'☕', bg:'#0a1218,#0e1c26', desc:'Double-wall vacuum insulated, 500ml, logo laser engraving', moq:20, badge:'popular', isNew:false,
+      tagline:'Hot or cold, your brand stays front of mind — an everyday tumbler crafted for performance and presence.',
+      includes:['500ml double-wall stainless steel tumbler','Vacuum insulated (keeps hot 12h / cold 24h)','Leak-proof lid','Logo laser engraving on body','Individual gift box'] },
+    { id:14, name:'Glass Tea Set',        cat:'drinkware',           emoji:'🍵', bg:'#0a1218,#0e1c26', desc:'Borosilicate glass set with branded box, 4-cup gift set', moq:10, badge:'', isNew:false,
+      tagline:'For clients who appreciate the finer things — a premium borosilicate glass tea set in a beautiful branded gift box.',
+      includes:['4x borosilicate glass tea cups (200ml)','1x glass teapot (800ml) with infuser','Custom printed gift box','Foam insert protection','Optional loose-leaf tea add-on'] },
+    { id:15, name:'Crystal Trophy',       cat:'awards',              emoji:'🏆', bg:'#1a1408,#241c08', desc:'Optical crystal award with full-colour print base', moq:1,  badge:'', isNew:false,
+      tagline:'Mark milestones with magnificence — optical crystal trophies that honour achievement with lasting brilliance.',
+      includes:['Optical crystal main trophy body','Full-colour printed base plate','Custom engraved text & logo','Velvet-lined presentation box','Certificate of authenticity card'] },
+    { id:16, name:'Acrylic Plaque',       cat:'awards',              emoji:'🥇', bg:'#1a1408,#241c08', desc:'Clear acrylic plaque with UV print, custom text & logo', moq:1,  badge:'new', isNew:true,
+      tagline:'Modern recognition with a premium edge — precision-cut acrylic with vivid UV printing for awards that stand out.',
+      includes:['10mm clear acrylic panel','Full-colour UV direct print','Custom text & logo layout','Chrome stand or wall mount option','Protective sleeve packaging'] },
+    { id:17, name:'Tote Bag',             cat:'promotional',         emoji:'👜', bg:'#1a0a10,#240a14', desc:'Canvas tote with full-colour print, 38x42cm', moq:50, badge:'', isNew:false,
+      tagline:'Carry your brand everywhere — a sturdy canvas tote that turns every outing into a brand moment.',
+      includes:['Natural canvas tote bag (38x42cm)','Full-colour screen or digital print','Long cotton handles','Internal pocket option','Flat pack or rolled bundle'] },
+    { id:18, name:'Umbrella Set',         cat:'promotional',         emoji:'☂️', bg:'#1a0a10,#240a14', desc:'Auto-open golf umbrella with pongee canopy logo print', moq:25, badge:'popular', isNew:false,
+      tagline:'Your brand shines brightest in a downpour — a premium golf umbrella that makes a big impression.',
+      includes:['Golf umbrella, 120cm canopy diameter','Auto-open mechanism','8-panel pongee fabric with logo print','Fibreglass ribs & rubber grip handle','Sleeve pouch packaging'] },
+  ];
+
+  const catLabels = {
+    'corporate-gifts':'Corporate Gifts','branded-stationery':'Branded Stationery',
+    'apparel':'Apparel & Uniforms','drinkware':'Drinkware',
+    'awards':'Awards & Trophies','promotional':'Promotional Items',
+  };
+
+  // ── LOAD PRODUCT FROM URL PARAM ──
+  const params = new URLSearchParams(window.location.search);
+  const productId = parseInt(params.get('id')) || 1;
+  const p = PRODUCTS.find(x => x.id === productId) || PRODUCTS[0];
+
+  // Update page title
+  document.title = `${p.name} — CS Premium Solutions`;
+
+  // Update breadcrumb
+  document.querySelector('.breadcrumb-bar').innerHTML = `
+    <a href="index.html">Home</a> <span>›</span>
+    <a href="catalog.html">Products</a> <span>›</span>
+    <span>${p.name}</span>`;
+
+  // Update category tag
+  document.querySelector('.product-cat-tag').textContent = catLabels[p.cat] || p.cat;
+
+  // Update product name
+  const nameParts = p.name.split(' ');
+  const lastName = nameParts.pop();
+  document.querySelector('.product-name').innerHTML = `${nameParts.join(' ')} <em>${lastName}</em>`;
+
+  // Update tagline
+  document.querySelector('.product-tagline').textContent = p.tagline || p.desc;
+
+  // Update badge
+  const badge = document.querySelector('.image-badge');
+  if (p.badge) { badge.textContent = p.badge; badge.style.display = ''; }
+  else { badge.style.display = 'none'; }
+
+  // Update main image
+  const [c1, c2] = p.bg.split(',');
+  const imageMain = document.getElementById('imageMain');
+  imageMain.style.background = `linear-gradient(135deg, ${c1} 0%, ${c2} 60%, ${c1} 100%)`;
+  document.getElementById('mainEmoji').textContent = p.emoji;
+
+  // Update MOQ on spec tile
+  document.querySelector('.spec-value').textContent = p.moq;
+
+  // Update includes list
+  const includesList = document.querySelector('.includes-list');
+  includesList.innerHTML = p.includes.map(i => `<li>${i}</li>`).join('');
+
+  // Update Telegram enquire link
+  function updateEnquireLink() {
+    const qty = document.getElementById('qtyInput').value;
+    const brand = document.querySelector('.brand-opt.active')?.dataset.brand || 'Logo Emboss';
+    const msg = encodeURIComponent(`Hi! I'm interested in ${p.name}.\nQty: ${qty} pcs\nBranding: ${brand}\nPlease share pricing & availability.`);
+    document.getElementById('enquireBtn').href = `https://t.me/YourTelegramHandle?text=${msg}`;
+  }
+
+  // Update description tab text
+  document.querySelector('#tab-description .tab-text').innerHTML = `<p>${p.tagline || p.desc}</p>`;
+
+  // ── RELATED PRODUCTS (exclude current, pick 4) ──
+  const related = PRODUCTS.filter(x => x.id !== p.id).slice(0, 4);
+  const relGrid = document.querySelector('.related-grid');
+  relGrid.innerHTML = related.map(r => {
+    const [rc1, rc2] = r.bg.split(',');
+    return `<a href="product.html?id=${r.id}" class="related-card fade-up">
+      <div class="related-card-img" style="background:linear-gradient(135deg,${rc1},${rc2})">${r.emoji}</div>
+      <div class="related-card-info">
+        <div class="related-card-cat">${catLabels[r.cat] || r.cat}</div>
+        <div class="related-card-name">${r.name}</div>
+      </div>
+    </a>`;
+  }).join('');
+
+  // ── THUMBNAIL SWITCHER ──
+  const thumbs = document.querySelectorAll('.thumb');
+  const mainEmoji = document.getElementById('mainEmoji');
+  thumbs.forEach(t => {
+    t.addEventListener('click', () => {
+      thumbs.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      mainEmoji.style.opacity = '0';
+      mainEmoji.style.transform = 'scale(0.85)';
+      setTimeout(() => {
+        mainEmoji.textContent = t.dataset.emoji;
+        const [tc1, tc2] = t.dataset.bg.split(',');
+        imageMain.style.background = `linear-gradient(135deg, ${tc1} 0%, ${tc2} 60%, ${tc1} 100%)`;
+        mainEmoji.style.opacity = '0.9';
+        mainEmoji.style.transform = 'scale(1)';
+      }, 200);
+    });
+  });
+  mainEmoji.style.transition = 'opacity 0.2s, transform 0.3s';
+
+  // ── QUANTITY ──
+  const qtyInput = document.getElementById('qtyInput');
+  const qtyDisplay = document.getElementById('qtyDisplay');
+  const minQty = Math.max(p.moq, 1);
+  qtyInput.value = minQty;
+  qtyInput.min = minQty;
+  qtyDisplay.textContent = minQty + ' pcs';
+
+  function updateQty(val) {
+    const v = Math.max(minQty, Math.round(val / Math.max(1, Math.floor(minQty/5 || 1))) * Math.max(1, Math.floor(minQty/5 || 1)));
+    qtyInput.value = v;
+    qtyDisplay.textContent = v + ' pcs';
+    updateEnquireLink();
+  }
+
+  document.getElementById('qtyMinus').addEventListener('click', () => updateQty(+qtyInput.value - (minQty >= 10 ? 5 : 1)));
+  document.getElementById('qtyPlus').addEventListener('click', () => updateQty(+qtyInput.value + (minQty >= 10 ? 5 : 1)));
+  qtyInput.addEventListener('change', () => updateQty(+qtyInput.value));
+
+  // ── BRANDING OPTIONS ──
+  document.querySelectorAll('.brand-opt').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.brand-opt').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById('brandDisplay').textContent = b.dataset.brand;
+      updateEnquireLink();
+    });
+  });
+
+  updateEnquireLink();
+
+  // ── TABS ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── COPY LINK ──
+  window.copyLink = function() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.querySelector('.btn-share');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ &nbsp;Link Copied!';
+      btn.style.borderColor = 'var(--gold)';
+      btn.style.color = 'var(--gold)';
+      setTimeout(() => { btn.innerHTML = orig; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
+    });
+  };
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

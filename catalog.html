@@ -252,6 +252,7 @@
       position: relative; background: var(--dark-3);
       overflow: hidden; cursor: pointer;
       transition: transform 0.3s;
+      text-decoration: none; display: block; color: inherit;
     }
     .product-card::before {
       content: ''; display: block; padding-top: 115%;
@@ -782,8 +783,9 @@ function renderCards(list) {
   }
 
   list.forEach((p, i) => {
-    const card = document.createElement('div');
+    const card = document.createElement('a');
     card.className = 'product-card';
+    card.href = `product.html?id=${p.id}`;
     card.style.animationDelay = (i * 40) + 'ms';
 
     if (isListView) {
@@ -798,7 +800,7 @@ function renderCards(list) {
           <div class="card-footer">
             ${p.badge ? `<span class="card-badge badge-${p.badge === 'new' ? 'new' : 'popular'}">${p.badge}</span>` : '<span></span>'}
             <div class="card-moq">MOQ: <strong>${p.moq} pcs</strong></div>
-            <a href="https://t.me/YourTelegramHandle" class="card-cta" target="_blank">Enquire →</a>
+            <span class="card-cta">View Details →</span>
           </div>
         </div>`;
     } else {
@@ -811,7 +813,7 @@ function renderCards(list) {
           <div class="card-desc">${p.desc}</div>
           <div class="card-footer">
             <div class="card-moq">MOQ: <strong>${p.moq} pcs</strong></div>
-            <a href="https://t.me/YourTelegramHandle" class="card-cta" target="_blank">Enquire →</a>
+            <span class="card-cta">View Details →</span>
           </div>
         </div>`;
     }
